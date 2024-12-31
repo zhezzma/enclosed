@@ -22,9 +22,11 @@ jobs:
         run: |
           cd ..
           git clone https://zhepama:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/zhepama/enclosed hf-repo
-          
+
+          echo "{\"lastUpdated\": \"$(date -u +'%Y-%m-%dT%H:%M:%SZ')\"}" > $GITHUB_WORKSPACE/version.json
+          cp $GITHUB_WORKSPACE/version.json hf-repo/version.json
           cp $GITHUB_WORKSPACE/Dockerfile.hf hf-repo/Dockerfile
-          
+                    
           cd hf-repo
           git add .
           git commit -m "Update from GitHub Actions"
